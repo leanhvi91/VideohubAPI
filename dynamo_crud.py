@@ -4,7 +4,7 @@ import json
 import decimal
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
-import datetime
+import datetime, time
 
 # Helper class to convert a DynamoDB item to JSON.
 class DecimalEncoder(json.JSONEncoder):
@@ -131,8 +131,8 @@ def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, max
     :param D2:
     :return:
     """
-    fromDate = int(datetime.datetime(Y1, M1, D1).timestamp())
-    toDate = int(datetime.datetime(Y2, M2, D2).timestamp())
+    fromDate = int(time.mktime([Y1, M1, D1, 0, 0, 0, 0, 0, 0]))
+    toDate =  int(time.mktime([Y2, M2, D2, 0, 0, 0, 0, 0, 0]))
     return list_videos(channelId=channelId, fromDate=fromDate, toDate=toDate, maxItems=maxItems)
 
 if __name__ == "__main__":

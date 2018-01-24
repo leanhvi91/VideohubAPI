@@ -64,11 +64,14 @@ def get_item(key, table):
     try:
         response = __table.get_item(Key=key)
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        err = e.response['Error']['Message']
+        print(err)
+        return err
     else:
         item = response['Item']
-        print("GetItem succeeded:")
-        print(json.dumps(item, indent=4, cls=DecimalEncoder))
+        # print("GetItem succeeded:")
+        # print(json.dumps(item, indent=4, cls=DecimalEncoder))
+        return item
 
 
 def delete_item(key, table):

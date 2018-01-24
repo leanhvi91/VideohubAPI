@@ -56,3 +56,12 @@ def get_video(event, context):
     }
     video = db.get_item(key=key, table=table)
     return response(video)
+
+
+def list_videos(event, context):
+    """
+    Return list videos
+    :return:
+    """
+    videos = db.list_videos_by_date(channelId="UCwmZiChSryoWQCZMIQezgTg", maxItems=10)
+    return response(videos)

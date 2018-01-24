@@ -22,6 +22,18 @@ provider:
   runtime: python3.6
   profile: serverless
 
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:DescribeTable"
+        - "dynamodb:Query"
+        - "dynamodb:Scan"
+        - "dynamodb:GetItem"
+        - "dynamodb:PutItem"
+        - "dynamodb:UpdateItem"
+        - "dynamodb:DeleteItem"
+      Resource: "arn:aws:dynamodb:*"
+
   stage: dev
   region: ap-southeast-1
 
@@ -34,10 +46,16 @@ functions:
           method: get  # 3
           path: hello  # 4
 
-
   get_video:
     handler: handler.get_video
     events:  # 1
       - http:  # 2
           method: get  # 3
           path: video  # 4
+
+  list_videos:
+    handler: handler.list_videos
+    events:  # 1
+      - http:  # 2
+          method: get  # 3
+          path: videos  # 4

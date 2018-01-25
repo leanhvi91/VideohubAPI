@@ -80,3 +80,13 @@ def list_videos(event, context):
     else:
         return response(None)
 
+
+def list_channels(event, context):
+    """
+
+    :param event:
+    :param context:
+    :return:
+    """
+    channels = db.list_channels()
+    return response(channels)

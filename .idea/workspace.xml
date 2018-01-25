@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61009661-fd7b-4563-883d-d202bef1357c" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/serializer.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/VideohubAPI.iml" afterPath="$PROJECT_DIR$/.idea/VideohubAPI.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/dynamo_crud.py" afterPath="$PROJECT_DIR$/dynamo_crud.py" />
       <change beforePath="$PROJECT_DIR$/handler.py" afterPath="$PROJECT_DIR$/handler.py" />
+      <change beforePath="$PROJECT_DIR$/serverless.yml" afterPath="$PROJECT_DIR$/serverless.yml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,7 +19,7 @@
       <file leaf-file-name="serializer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/serializer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
+            <state relative-caret-position="468">
               <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -31,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dynamo_crud.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dynamo_crud.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dynamo_crud.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="117" column="34" lean-forward="false" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
+            <state relative-caret-position="-258">
+              <caret line="158" column="29" lean-forward="false" selection-start-line="158" selection-start-column="29" selection-end-line="158" selection-end-column="29" />
               <folding>
                 <element signature="e#0#65#0" expanded="true" />
               </folding>
@@ -46,8 +43,8 @@
       <file leaf-file-name="handler.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="965">
-              <caret line="73" column="75" lean-forward="false" selection-start-line="73" selection-start-column="75" selection-end-line="73" selection-end-column="75" />
+            <state relative-caret-position="264">
+              <caret line="83" column="17" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="17" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -55,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serverless.yml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="serverless.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/serverless.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
+            <state relative-caret-position="372">
+              <caret line="67" column="23" lean-forward="false" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -80,12 +77,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/serverless.yml" />
         <option value="$PROJECT_DIR$/channels.py" />
         <option value="$PROJECT_DIR$/util.py" />
         <option value="$PROJECT_DIR$/serializer.py" />
-        <option value="$PROJECT_DIR$/handler.py" />
         <option value="$PROJECT_DIR$/dynamo_crud.py" />
+        <option value="$PROJECT_DIR$/handler.py" />
+        <option value="$PROJECT_DIR$/serverless.yml" />
       </list>
     </option>
   </component>
@@ -129,6 +126,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -141,7 +139,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -187,18 +184,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1920" height="990" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39455783" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39342403" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -217,6 +213,44 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1314">
+          <caret line="73" column="75" lean-forward="false" selection-start-line="73" selection-start-column="75" selection-end-line="73" selection-end-column="75" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/serverless.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dynamo_crud.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2106">
+          <caret line="117" column="34" lean-forward="false" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dynamo_crud.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -376,36 +410,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/serverless.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="34" column="35" lean-forward="false" selection-start-line="34" selection-start-column="35" selection-end-line="34" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/util.py" />
     <entry file="file://$PROJECT_DIR$/serializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
+        <state relative-caret-position="468">
           <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="965">
-          <caret line="73" column="75" lean-forward="false" selection-start-line="73" selection-start-column="75" selection-end-line="73" selection-end-column="75" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -414,11 +423,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dynamo_crud.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="117" column="34" lean-forward="false" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
+        <state relative-caret-position="-258">
+          <caret line="158" column="29" lean-forward="false" selection-start-line="158" selection-start-column="29" selection-end-line="158" selection-end-column="29" />
           <folding>
             <element signature="e#0#65#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="83" column="17" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/serverless.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="67" column="23" lean-forward="false" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>

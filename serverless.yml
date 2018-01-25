@@ -59,3 +59,10 @@ functions:
       - http:  # 2
           method: get  # 3
           path: videos  # 4
+
+  list_channels:
+    handler: handler.list_channels
+    events:  # 1
+      - http:  # 2
+          method: get  # 3
+          path: channels  # 4

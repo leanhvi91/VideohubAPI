@@ -148,6 +148,23 @@ def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, max
     toDate =  int(time.mktime([Y2, M2, D2, 0, 0, 0, 0, 0, 0]))
     return list_videos(channelId=channelId, fromDate=fromDate, toDate=toDate, maxItems=maxItems, startKey=startKey)
 
+
+def list_channels():
+    """
+    List all channels
+    :return:
+    """
+    print("List channels")
+    __table = dynamodb.Table("Channels")
+    response = __table.query(
+        KeyConditionExpression="RootKey = :v",
+        ExpressionAttributeValues={
+            ":v": "root"
+        }
+    )
+    return response
+
+
 if __name__ == "__main__":
     # item = {
     #     'VideoId': "video_18",
@@ -179,14 +196,17 @@ if __name__ == "__main__":
     #
     # batch_put_items(items=items, table="Videos")
 
-    start_key = {
-        "ChannelId": "UCwmZiChSryoWQCZMIQezgTg",
-        "VideoId": "3uw0_HT8vVw",
-        "PublishedAt": 1242664595
-      }
+    # start_key = {
+    #     "ChannelId": "UCwmZiChSryoWQCZMIQezgTg",
+    #     "VideoId": "3uw0_HT8vVw",
+    #     "PublishedAt": 1242664595
+    #   }
+    #
+    # res = list_videos_by_date(channelId="UCwmZiChSryoWQCZMIQezgTg", maxItems=10, startKey=start_key)
+    #
+    # txt = json.dumps(res, indent=2, cls=DecimalEncoder)
 
-    res = list_videos_by_date(channelId="UCwmZiChSryoWQCZMIQezgTg", maxItems=10, startKey=start_key)
-
+    res = list_channels()
     txt = json.dumps(res, indent=2, cls=DecimalEncoder)
 
     print(txt)

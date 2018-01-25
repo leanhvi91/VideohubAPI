@@ -2,9 +2,8 @@ from __future__ import print_function  # Python 2/3 compatibility
 import boto3
 import json
 import decimal
-from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
-import datetime, time
+import time
 
 # Helper class to convert a DynamoDB item to JSON.
 class DecimalEncoder(json.JSONEncoder):
@@ -98,28 +97,42 @@ MIN_DATE = 0
 MAX_DATE = 32503662063
 MAX_ITEMS = 100
 
-def list_videos(channelId, fromDate=MIN_DATE, toDate= MAX_DATE, maxItems=MAX_ITEMS):
+def list_videos(channelId, fromDate=MIN_DATE, toDate= MAX_DATE, maxItems=MAX_ITEMS, startKey=None):
     """
 
     :return:
     """
     print("List videos")
     __table = dynamodb.Table("Videos")
-
-    response = __table.query(
-        IndexName="ChannelId-PublishedAt-index",
-        Limit=min(maxItems, MAX_ITEMS),
-        KeyConditionExpression= "ChannelId = :v1 AND PublishedAt BETWEEN :v2a AND :v2b",
-        ExpressionAttributeValues = {
+    if startKey:
+        response = __table.query(
+            IndexName="ChannelId-PublishedAt-index",
+            Limit=min(maxItems, MAX_ITEMS),
+            KeyConditionExpression="ChannelId = :v1 AND PublishedAt BETWEEN :v2a AND :v2b",
+            ExpressionAttributeValues={
                 ":v1": channelId,
                 ":v2a": fromDate,
                 ":v2b": toDate
-            }
-    )
+            },
+            ExclusiveStartKey=startKey,
+            ScanIndexForward=False
+        )
+    else:
+        response = __table.query(
+            IndexName="ChannelId-PublishedAt-index",
+            Limit=min(maxItems, MAX_ITEMS),
+            KeyConditionExpression="ChannelId = :v1 AND PublishedAt BETWEEN :v2a AND :v2b",
+            ExpressionAttributeValues={
+                ":v1": channelId,
+                ":v2a": fromDate,
+                ":v2b": toDate
+            },
+            ScanIndexForward=False
+        )
 
     return response
 
-def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, maxItems=MAX_ITEMS):
+def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, maxItems=MAX_ITEMS, startKey=None):
     """
 
     :param channelId:
@@ -133,7 +146,7 @@ def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, max
     """
     fromDate = int(time.mktime([Y1, M1, D1, 0, 0, 0, 0, 0, 0]))
     toDate =  int(time.mktime([Y2, M2, D2, 0, 0, 0, 0, 0, 0]))
-    return list_videos(channelId=channelId, fromDate=fromDate, toDate=toDate, maxItems=maxItems)
+    return list_videos(channelId=channelId, fromDate=fromDate, toDate=toDate, maxItems=maxItems, startKey=startKey)
 
 if __name__ == "__main__":
     # item = {
@@ -166,8 +179,13 @@ if __name__ == "__main__":
     #
     # batch_put_items(items=items, table="Videos")
 
+    start_key = {
+        "ChannelId": "UCwmZiChSryoWQCZMIQezgTg",
+        "VideoId": "3uw0_HT8vVw",
+        "PublishedAt": 1242664595
+      }
 
-    res = list_videos_by_date(channelId="UCwmZiChSryoWQCZMIQezgTg", maxItems=10)
+    res = list_videos_by_date(channelId="UCwmZiChSryoWQCZMIQezgTg", maxItems=10, startKey=start_key)
 
     txt = json.dumps(res, indent=2, cls=DecimalEncoder)
 

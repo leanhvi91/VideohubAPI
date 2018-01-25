@@ -1,6 +1,7 @@
 import json
 import dynamo_crud as db
 import decimal
+import serializer
 
 
 class DecimalEncoder(json.JSONEncoder):
@@ -63,5 +64,19 @@ def list_videos(event, context):
     Return list videos
     :return:
     """
-    videos = db.list_videos_by_date(channelId="UCwmZiChSryoWQCZMIQezgTg", maxItems=10)
-    return response(videos)
+    if "queryStringParameters" in event:
+        if "channelId" in event["queryStringParameters"]:
+            channelId = event["queryStringParameters"]["channelId"]
+            if "startKey" in event:
+                start_key = serializer.deserialize(event["startKey"])
+            else:
+                start_key = None
+            videos = db.list_videos_by_date(channelId=channelId, maxItems=50, startKey=start_key)
+            if "LastEvaluatedKey" in videos:
+                next_key = serializer.serialize(videos["LastEvaluatedKey"])
+                videos["nextKey"] = next_key
+
+            return response(videos)
+    else:
+        return response(None)
+

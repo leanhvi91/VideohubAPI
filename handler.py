@@ -26,6 +26,10 @@ def response(body):
     """
     response = {
         "statusCode": 200,
+        "headers": {
+             "Access-Control-Allow-Origin": "*",
+             "Access-Control-Allow-Credentials": "true"
+        },
         "body": json.dumps(body, indent=2, cls=DecimalEncoder)
     }
 
@@ -65,16 +69,21 @@ def list_videos(event, context):
     :return:
     """
     if "queryStringParameters" in event:
-        if "channelId" in event["queryStringParameters"]:
-            channelId = event["queryStringParameters"]["channelId"]
-            if "startKey" in event:
-                start_key = serializer.deserialize(event["startKey"])
+        param = event["queryStringParameters"]
+        if "channelId" in param:
+            channelId = param["channelId"]
+            if "pageToken" in param:
+                start_key = serializer.deserialize(param["pageToken"])
             else:
                 start_key = None
-            videos = db.list_videos_by_date(channelId=channelId, maxItems=50, startKey=start_key)
+            if "limit" in param:
+                limit = int(param["limit"])
+            else:
+                limit = 20
+            videos = db.list_videos_by_date(channelId=channelId, limit=limit, startKey=start_key)
             if "LastEvaluatedKey" in videos:
                 next_key = serializer.serialize(videos["LastEvaluatedKey"])
-                videos["nextKey"] = next_key
+                videos["NextToken"] = next_key
 
             return response(videos)
     else:

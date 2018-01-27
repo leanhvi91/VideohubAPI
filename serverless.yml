@@ -45,6 +45,7 @@ functions:
       - http:  # 2
           method: get  # 3
           path: hello  # 4
+          cors: true
 
   get_video:
     handler: handler.get_video
@@ -52,6 +53,7 @@ functions:
       - http:  # 2
           method: get  # 3
           path: video  # 4
+          cors: true
 
   list_videos:
     handler: handler.list_videos
@@ -59,6 +61,7 @@ functions:
       - http:  # 2
           method: get  # 3
           path: videos  # 4
+          cors: true
 
   list_channels:
     handler: handler.list_channels
@@ -66,3 +69,4 @@ functions:
       - http:  # 2
           method: get  # 3
           path: channels  # 4
+          cors: true

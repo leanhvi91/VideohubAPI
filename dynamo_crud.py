@@ -97,7 +97,7 @@ MIN_DATE = 0
 MAX_DATE = 32503662063
 MAX_ITEMS = 100
 
-def list_videos(channelId, fromDate=MIN_DATE, toDate= MAX_DATE, maxItems=MAX_ITEMS, startKey=None):
+def list_videos(channelId, fromDate=MIN_DATE, toDate= MAX_DATE, limit=MAX_ITEMS, startKey=None):
     """
 
     :return:
@@ -107,7 +107,7 @@ def list_videos(channelId, fromDate=MIN_DATE, toDate= MAX_DATE, maxItems=MAX_ITE
     if startKey:
         response = __table.query(
             IndexName="ChannelId-PublishedAt-index",
-            Limit=min(maxItems, MAX_ITEMS),
+            Limit=min(limit, MAX_ITEMS),
             KeyConditionExpression="ChannelId = :v1 AND PublishedAt BETWEEN :v2a AND :v2b",
             ExpressionAttributeValues={
                 ":v1": channelId,
@@ -120,7 +120,7 @@ def list_videos(channelId, fromDate=MIN_DATE, toDate= MAX_DATE, maxItems=MAX_ITE
     else:
         response = __table.query(
             IndexName="ChannelId-PublishedAt-index",
-            Limit=min(maxItems, MAX_ITEMS),
+            Limit=min(limit, MAX_ITEMS),
             KeyConditionExpression="ChannelId = :v1 AND PublishedAt BETWEEN :v2a AND :v2b",
             ExpressionAttributeValues={
                 ":v1": channelId,
@@ -132,7 +132,7 @@ def list_videos(channelId, fromDate=MIN_DATE, toDate= MAX_DATE, maxItems=MAX_ITE
 
     return response
 
-def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, maxItems=MAX_ITEMS, startKey=None):
+def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, limit=MAX_ITEMS, startKey=None):
     """
 
     :param channelId:
@@ -146,7 +146,7 @@ def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, max
     """
     fromDate = int(time.mktime([Y1, M1, D1, 0, 0, 0, 0, 0, 0]))
     toDate =  int(time.mktime([Y2, M2, D2, 0, 0, 0, 0, 0, 0]))
-    return list_videos(channelId=channelId, fromDate=fromDate, toDate=toDate, maxItems=maxItems, startKey=startKey)
+    return list_videos(channelId=channelId, fromDate=fromDate, toDate=toDate, limit=limit, startKey=startKey)
 
 
 def list_channels():

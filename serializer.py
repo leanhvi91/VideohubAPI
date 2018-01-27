@@ -1,6 +1,6 @@
 import json
-import base64
 import decimal
+from urllib import quote, unquote
 
 class DecimalEncoder(json.JSONEncoder):
     """
@@ -22,7 +22,7 @@ def serialize(obj):
     :return:
     """
     s = json.dumps(obj, cls=DecimalEncoder)
-    return s.replace("\n","")
+    return quote(s)
 
 def deserialize(code):
     """
@@ -30,4 +30,5 @@ def deserialize(code):
     :param code:
     :return:
     """
-    return json.loads(code)
+    s = unquote(code)
+    return json.loads(s)

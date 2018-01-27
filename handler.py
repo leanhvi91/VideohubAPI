@@ -2,6 +2,7 @@ import json
 import dynamo_crud as db
 import decimal
 import serializer
+from local_utils import get_time_stamp, get_time_label
 
 
 class DecimalEncoder(json.JSONEncoder):
@@ -72,20 +73,38 @@ def list_videos(event, context):
         param = event["queryStringParameters"]
         if "channelId" in param:
             channelId = param["channelId"]
+
             if "pageToken" in param:
                 start_key = serializer.deserialize(param["pageToken"])
             else:
                 start_key = None
+
             if "limit" in param:
                 limit = int(param["limit"])
             else:
                 limit = 20
-            videos = db.list_videos_by_date(channelId=channelId, limit=limit, startKey=start_key)
-            if "LastEvaluatedKey" in videos:
-                next_key = serializer.serialize(videos["LastEvaluatedKey"])
-                videos["NextToken"] = next_key
 
-            return response(videos)
+            if "fromDate" in param:
+                from_date = get_time_stamp(param["fromDate"])
+            else:
+                from_date = None
+
+            if "toDate" in param:
+                to_date = get_time_stamp(param["toDate"])
+            else:
+                to_date = None
+
+            from_db = db.list_videos(channelId=channelId, limit=limit, startKey=start_key, fromDate=from_date, toDate=to_date)
+
+            to_client = {
+                "videos": from_db["Items"]
+            }
+
+            if "LastEvaluatedKey" in from_db:
+                next_key = serializer.serialize(from_db["LastEvaluatedKey"])
+                to_client["nextToken"] = next_key
+
+            return response(to_client)
     else:
         return response(None)
 
@@ -97,5 +116,8 @@ def list_channels(event, context):
     :param context:
     :return:
     """
-    channels = db.list_channels()
-    return response(channels)
+    from_db = db.list_channels()
+    to_client ={
+        "channels": from_db["Items"]
+    }
+    return response(to_client)

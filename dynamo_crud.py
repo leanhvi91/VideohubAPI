@@ -93,60 +93,52 @@ def delete_item(key, table):
         print("DeleteItem succeeded:")
         print(json.dumps(response, indent=4, cls=DecimalEncoder))
 
-MIN_DATE = 0
-MAX_DATE = 32503662063
-MAX_ITEMS = 100
 
-def list_videos(channelId, fromDate=MIN_DATE, toDate= MAX_DATE, limit=MAX_ITEMS, startKey=None):
+def list_videos(channelId, fromDate=None, toDate= None, limit=20, startKey=None):
+    # type: (str, str, str, int, str) -> object
     """
 
     :return:
     """
     print("List videos")
     __table = dynamodb.Table("Videos")
+
+    key_condition_expression = "ChannelId = :v1"
+    expression_attribute_values = {
+        ":v1": channelId
+    }
+
+    if fromDate and toDate:
+        key_condition_expression += " AND PublishedAt BETWEEN :v2 AND :v3"
+        expression_attribute_values[":v2"] = fromDate
+        expression_attribute_values[":v3"] = toDate
+    else:
+        if fromDate:
+            key_condition_expression += " AND PublishedAt >= :v2"
+            expression_attribute_values[":v2"] = fromDate
+        elif toDate:
+            key_condition_expression += " AND PublishedAt <= :v3"
+            expression_attribute_values[":v3"] = toDate
+
     if startKey:
         response = __table.query(
             IndexName="ChannelId-PublishedAt-index",
-            Limit=min(limit, MAX_ITEMS),
-            KeyConditionExpression="ChannelId = :v1 AND PublishedAt BETWEEN :v2a AND :v2b",
-            ExpressionAttributeValues={
-                ":v1": channelId,
-                ":v2a": fromDate,
-                ":v2b": toDate
-            },
+            Limit=min(limit, 100),
+            KeyConditionExpression=key_condition_expression,
+            ExpressionAttributeValues=expression_attribute_values,
             ExclusiveStartKey=startKey,
             ScanIndexForward=False
         )
     else:
         response = __table.query(
             IndexName="ChannelId-PublishedAt-index",
-            Limit=min(limit, MAX_ITEMS),
-            KeyConditionExpression="ChannelId = :v1 AND PublishedAt BETWEEN :v2a AND :v2b",
-            ExpressionAttributeValues={
-                ":v1": channelId,
-                ":v2a": fromDate,
-                ":v2b": toDate
-            },
+            Limit=min(limit, 100),
+            KeyConditionExpression=key_condition_expression,
+            ExpressionAttributeValues=expression_attribute_values,
             ScanIndexForward=False
         )
 
     return response
-
-def list_videos_by_date(channelId, Y1=1970, M1=1, D1=1, Y2=3000, M2=1, D2=1, limit=MAX_ITEMS, startKey=None):
-    """
-
-    :param channelId:
-    :param Y1:
-    :param M1:
-    :param D1:
-    :param Y2:
-    :param M2:
-    :param D2:
-    :return:
-    """
-    fromDate = int(time.mktime([Y1, M1, D1, 0, 0, 0, 0, 0, 0]))
-    toDate =  int(time.mktime([Y2, M2, D2, 0, 0, 0, 0, 0, 0]))
-    return list_videos(channelId=channelId, fromDate=fromDate, toDate=toDate, limit=limit, startKey=startKey)
 
 
 def list_channels():
@@ -166,47 +158,8 @@ def list_channels():
 
 
 if __name__ == "__main__":
-    # item = {
-    #     'VideoId': "video_18",
-    #     'ChannelId': "channel_07",
-    #     'PublishedAt': 1920112
-    # }
-    # put_item(item=item, table="Videos")
 
-    # key = {
-    #     'VideoId': "video_18"
-    # }
-    # get_item(key=key, table="Videos")
-    # delete_item(key=key, table="Videos")
-
-    #
-    # items = []
-    #
-    # for i in range(200):
-    #     video_id = i
-    #     channel_id = i % 10
-    #     day = i % 29 + 1
-    #     published_at = int(datetime.datetime(2018, 1, day).timestamp())
-    #     item = {
-    #         "VideoId": ("video_%s" % video_id),
-    #         "ChannelId":("channel_%s" % channel_id),
-    #         "PublishedAt": published_at
-    #     }
-    #     items.append(item)
-    #
-    # batch_put_items(items=items, table="Videos")
-
-    # start_key = {
-    #     "ChannelId": "UCwmZiChSryoWQCZMIQezgTg",
-    #     "VideoId": "3uw0_HT8vVw",
-    #     "PublishedAt": 1242664595
-    #   }
-    #
-    # res = list_videos_by_date(channelId="UCwmZiChSryoWQCZMIQezgTg", maxItems=10, startKey=start_key)
-    #
-    # txt = json.dumps(res, indent=2, cls=DecimalEncoder)
-
-    res = list_channels()
+    res = list_videos(channelId="UCzWQYUVCpZqtN93H8RR44Qw", fromDate=None, toDate=1413166406, limit=5)
     txt = json.dumps(res, indent=2, cls=DecimalEncoder)
 
     print(txt)

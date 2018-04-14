@@ -18,3 +18,8 @@ var/
 
 # Serverless directories
 .serverless
+
+
+# IDE management files
+.idea/*
+.idea

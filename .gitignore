@@ -23,3 +23,6 @@ var/
 # IDE management files
 .idea/*
 .idea
+
+# Virtual Environments
+subtitle-loader-env/*

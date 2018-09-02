@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<!-- Place to display subtitle -->
+	<div id='subtitle'></div>
+
+ 	<!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script type="text/javascript">
+
+
+    	var videoId = '0o2yyO0JAes';
+		var place = $('#subtitle');
+		var playerTagId = 'player'
+
+		// 2. This code loads the IFrame Player API code asynchronously.
+		var tag = document.createElement('script');
+
+		tag.src = "https://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		// 3. This function creates an <iframe> (and YouTube player)
+		//    after the API code downloads.
+		var player;
+		function onYouTubeIframeAPIReady() {
+				player = new YT.Player(playerTagId, {
+				height: '390',
+				width: '640',
+				videoId: videoId,
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange
+				}
+			});
+		}
+
+		// 4. The API will call this function when the video player is ready.
+		var onPlayerReady = function(event) {
+			event.target.playVideo();
+			loadSubtitle(videoId, place, player);
+		}
+
+		var done = false;
+		var onPlayerStateChange = function(event) {
+			if (event.data == YT.PlayerState.PLAYING && SUBS.length > 0) {
+				console.log("Start video");
+				syncSubtitle(player, SUBS, place);
+			}
+			else{
+				console.log("Stop video");
+				clearSchedule();
+			}
+		}
+
+
+		// ----------------------- Sync subtitle region -----------------------------//
+
+		// Load subtitle of video Id, and run subtitle
+		function loadSubtitle(videoId, place, player){
+			var API_URL = "https://mpsbufq5fk.execute-api.ap-southeast-1.amazonaws.com/demo/subtitles"
+			$.ajax({
+				url: API_URL, 
+				data: {
+					'videoId': videoId
+				},
+				success: function(data){
+					SUBS = data.lines;
+			        console.log(data);
+			        // syncSubtitle(player, SUBS, place);
+			    }
+			});
+		}
+
+
+		var SUBS;
+		var TIMEOUT_HIDE;		
+		var TIMEOUT_SHOW;
+
+		function clearSchedule(){
+			clearTimeout(TIMEOUT_HIDE);
+			clearTimeout(TIMEOUT_SHOW);
+		}
+
+		function viewSub(subs, i, place){
+			
+			text = subs[i].text;
+			wait_to_hide = subs[i].end - subs[i].start;
+
+			console.log(text);
+			place.text(text);
+
+			TIMEOUT_HIDE = setTimeout(function(){
+				console.log("end line: " + i);
+				place.text("");
+			}, wait_to_hide);
+
+
+			// Set timout for next line if this is not the last line.
+			if(i==subs.length-1){
+				return 0;
+			}
+			wait_to_show = subs[i+1].start - subs[i].start;
+			TIMEOUT_SHOW = setTimeout(function(){
+				viewSub(subs, i+1, place);
+			}, wait_to_show);
+		}
+
+		function findLineByTime(subs, t){
+
+			for(i=0;i < subs.length; i++){
+				start = subs[i].start;
+				end = subs[i].end;
+
+				if(start <= t && t <= end){
+					return i;
+				}
+				if(t < start){
+					return -1;
+				}
+			}
+			return -2;
+		}
+
+
+		// Start subtitle at time t
+		function runSubtitle(subs, t, place){
+			clearSchedule();
+
+			lineId = findLineByTime(subs, t);
+			if(lineId < -1){
+				console.log("Time is longer than of subtitle length!");
+				return;
+			}
+
+			lineId += 1;
+			wait = subs[lineId].start - t;
+			TIMEOUT_SHOW = setTimeout(function(){
+				viewSub(subs, lineId, place);
+			}, wait);
+			
+		}
+
+
+		function syncSubtitle(player, subs, place){
+			clearTimeout(TIMEOUT_HIDE);
+			clearTimeout(TIMEOUT_SHOW);
+			t = 1000 * player.getCurrentTime();	
+			runSubtitle(subs, t, place);
+		}
+
+
+
+		$(document).ready(function(){
+
+			
+		});
+
+    </script>
+
+</body>
+</html>
